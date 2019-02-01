@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Link;
 use App\Models\Reply;
 use App\Models\Topic;
 use App\Models\User;
+use App\Observers\LinkObserver;
 use App\Observers\ReplyObserver;
 use App\Observers\TopicObserver;
 use App\Observers\UserObserver;
@@ -21,10 +23,14 @@ class AppServiceProvider extends ServiceProvider
     {
         //
 
-        \Carbon\Carbon::setLocale('zh');
         User::observe(UserObserver::class);
         Topic::observe(TopicObserver::class);
         Reply::observe(ReplyObserver::class);
+        Link::observe(LinkObserver::class);
+
+        // Carbon 中文化配置
+        \Carbon\Carbon::setLocale('zh');
+
     }
 
     /**
